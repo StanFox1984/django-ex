@@ -12,11 +12,14 @@ def index(request):
     hostname = os.getenv('HOSTNAME', 'unknown')
     PageView.objects.create(hostname=hostname)
 #ff
-    return render(request, 'welcome/MainView.htm', {
+    return render(request, 'welcome/index.html', {
         'hostname': hostname,
         'database': database.info(),
         'count': PageView.objects.count()
     })
+
+def mainview(request):
+    return render(request, 'welcome/MainView.htm')
 
 def health(request):
     return HttpResponse(PageView.objects.count())
