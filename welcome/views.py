@@ -1,4 +1,5 @@
 import os
+import predict
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse
@@ -19,7 +20,9 @@ def index(request):
     })
 
 def mainview(request):
-    return render(request, 'welcome/MainView.htm')
+    s = render(request, 'welcome/MainView.htm')
+    s += run_all_tests()
+    return s
 
 def health(request):
     return HttpResponse(PageView.objects.count())
