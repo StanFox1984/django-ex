@@ -1,0 +1,128 @@
+<br><head><style>
+.button {
+  background: #257824;
+  background-image: -webkit-linear-gradient(top, #257824, #2bb895);
+  background-image: -moz-linear-gradient(top, #257824, #2bb895);
+  background-image: -ms-linear-gradient(top, #257824, #2bb895);
+  background-image: -o-linear-gradient(top, #257824, #2bb895);
+  background-image: linear-gradient(to bottom, #257824, #2bb895);
+  -webkit-border-radius: 30;
+  -moz-border-radius: 30;
+  border-radius: 30px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 5px 10px 5px 10px;
+  border: solid #1f628d 3px;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+                            </style></head>
+                            <form action="test_get" method="get" />
+                            <input type="text" value="predictor_id" name="n" /><br>
+                            <input type="text" value="X" name="X" />
+                            <select id="aliases">
+                            </select>
+                            <button type="button" class="button" name="add_to_x" onclick="fill_x_with_alias()">Add to X</button>
+                            <button type="button" class="button" name="add_to_y" onclick="fill_y_with_alias()">Add to Y</button><br>
+                            <input type="text" value="Y" name="Y" /><br>
+                            <input type="text" value="depth" name="depth" /><br>
+                            <input type="text" value="alias_key" name="alias_key" /><br>
+                            <input type="text" value="alias_value" name="alias_value" /><br>
+                            <input type="text" value="W" name="W" /><br>
+                            <input type="text" value="step" name="step" /><br>
+                            <input type="text" value="points_per_network" name="points_per_network" /><br>
+                            <input type="text" value="num_layers" name="num_layers" /><br>
+                            <input type="text" value="max_iterations" name="max_iterations" /><br>
+                            <input type="submit" value="predict_study" class="button" name="predict_study" /><br>
+                            <input type="submit" value="predict_study_from_link" class="button" name="predict_study_from_link" />
+                            X:<input type="text" value="" name="predict_study_link_x" />
+                            Y:<input type="text" value="" name="predict_study_link_y" /><br>
+                            <input type="submit" value="predict_create" class="button" name="predict_create" />
+                            Include weather sample aliases
+                            <input type="checkbox" name="weather_sample_alias" value="weather_sample_alias">
+                            Include stock sample aliases
+                            <input type="checkbox" name="stock_sample_alias" value="stock_sample_alias"><br>
+                            <input type="submit" value="predict_set_alias" class="button" name="predict_set_alias" /><br>
+                            <input type="submit" value="predict" class="button" name="predict" /><br>
+                            <input type="submit" value="predict_remove" class="button" name="predict_remove" /><br>
+                            <input type="submit" value="predict_remove_all" class="button" name="predict_remove_all" /><br>
+                            <input type="submit" value="predict_list" class="button" name="predict_list" /><br>
+                            <input type="submit" value="predict_run_tests" class="button"  name="predict_run_tests" />
+                            </form>
+                            Neural network dimensions: <br><input type="text" value="2" name="dimensions" /><br>
+                            <button name="fill_for_create" class="button" onclick="fill_def_values_create()">Fill_for_create</button><br>
+                            <script>
+                              function fill_def_values_create()
+                              {
+//                                alert(document.getElementsByName("dimensions")[0].value);
+                                  var dimensions = parseInt(document.getElementsByName("dimensions")[0].value);
+                                  var W = "[ ";
+                                  var step = "[ ";
+                                  for (i=0;i<dimensions;i++)
+                                  {
+                                      if( i < (dimensions - 1) )
+                                      {
+                                        W += "1.0, ";
+                                        step += "0.1, ";
+                                      }
+                                      else
+                                      {
+                                        W += "1.0";
+                                        step += "0.1";
+                                      }
+                                  }
+                                  W += " ] ";
+                                  step += " ] ";
+//                                alert(W);
+                                  document.getElementsByName("W")[0].value = W;
+                                  document.getElementsByName("num_layers")[0].value = "3";
+                                  document.getElementsByName("max_iterations")[0].value = "1000000";
+                                  document.getElementsByName("points_per_network")[0].value = "2";
+                                  document.getElementsByName("step")[0].value = step;
+                              }
+                              function fill_x_with_alias()
+                              {
+                                  select = document.getElementById("aliases");
+                                  var s = select.options[select.selectedIndex].value;
+//                                  alert(s)
+                                  var X = document.getElementsByName("X")[0].value;
+                                  if ((X.length == 0) || (X == "X"))
+                                  {
+                                    X = "[["
+                                    X = X + "\'"+s+"\']]";
+                                  }
+                                  else
+                                  {
+                                    X = X.replace("]]","");
+                                    X = X + "," + "\'"+s+"\']]";
+                                  }
+                                  document.getElementsByName("X")[0].value = X;
+                              }
+                              function fill_y_with_alias()
+                              {
+                                  select = document.getElementById("aliases");
+                                  var s = select.options[select.selectedIndex].value;
+//                                  alert(s)
+                                  var Y = document.getElementsByName("Y")[0].value;
+                                  if ((Y.length == 0) || (Y == "Y"))
+                                  {
+                                    Y = "[["
+                                    Y = Y + "\'"+s+"\']]";
+                                  }
+                                  else
+                                  {
+                                    Y = Y.replace("]]","");
+                                    Y = Y + "," + "\'"+s+"\']]";
+                                  }
+                                  document.getElementsByName("Y")[0].value = Y;
+                              }
