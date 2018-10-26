@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 from . import database
 from .models import PageView
-from .predict import run_all_tests
+import .predict
 
 def index(request):
     hostname = os.getenv('HOSTNAME', 'unknown')
