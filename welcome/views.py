@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 from . import database
 from .models import PageView
-import .predict
+from . import predict
 
 def index(request):
     hostname = os.getenv('HOSTNAME', 'unknown')
@@ -19,7 +19,7 @@ def index(request):
 
 def mainview(request):
     s = render(request, 'welcome/MainView.htm')
-    s += run_all_tests()
+    s += predict.run_all_tests()
     return s
 
 def health(request):
