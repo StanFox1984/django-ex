@@ -19,7 +19,8 @@ def index(request):
 
 def mainview(request):
     s = render(request, 'welcome/MainView.htm')
-    s += predict.run_all_tests()
+    t = predict.run_all_tests()
+    s = s + t
     return s
 
 def health(request):
