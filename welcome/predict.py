@@ -11,10 +11,11 @@ import difflib
 from threading import Thread
 from multiprocessing.managers import BaseManager
 from multiprocessing import Pool
-from .tinythreadpool import TinyThreadPool
 from io import StringIO
 from datetime import datetime
 import sys
+
+from .tinythreadpool import TinyThreadPool
 
 #from theano import *
 #import theano.tensor as T

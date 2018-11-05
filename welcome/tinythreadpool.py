@@ -3,7 +3,6 @@
 from threading import RLock, Semaphore, Thread
 import time
 
-
 class PoolThread:
     def __init__( self,thread_id ):
         self.thread         = Thread( target = self.run )
@@ -67,7 +66,6 @@ class PoolThread:
     def __len__(self):
         with self.lock:
             return len(self.task_queue)
-                
 
 class TinyThreadPool:
     def __init__(self,num):
